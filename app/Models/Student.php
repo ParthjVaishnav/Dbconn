@@ -2,23 +2,27 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable; // Change here
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Extend Authenticatable for login
 
-class Student extends Authenticatable
+class Student extends Authenticatable // Change here
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    protected $table = 'students'; // Specify your table name
+    protected $table = 'students';
 
     protected $fillable = [
         'name',
         'email',
-        'password', // Required for authentication
+        'phone',
+        'address',
+        'created_at',
+        'updated_at'
     ];
 
     protected $hidden = [
-        'password',
+        'password', // Add if you're storing passwords here
         'remember_token',
     ];
 }

@@ -49,7 +49,7 @@ class Studentcontroller extends Controller
     public function editStudent(Request $request, $id)
     {
         $student = Student::find($id);
-        
+
         if (!$student) {
             return redirect('show-data')->with('error', 'Student not found');
         }
@@ -58,7 +58,7 @@ class Studentcontroller extends Controller
         $student->email = $request->email;
         $student->phone = $request->phone;
         $student->address = $request->address;
-        
+
         $student->save();
 
         return redirect('show-data')->with('success', 'Student updated successfully');

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Student;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -18,16 +18,16 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:students',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $student = new Student();
-        $student->name = $request->name;
-        $student->email = $request->email;
-        $student->password = Hash::make($request->password);
-        $student->save();
-        
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
         return redirect('/login')->with('success', 'Registration successful. Please log in.');
     }
 
@@ -36,20 +36,23 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+    public function addData(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) { // Authentication check
-            return view('add-data'); // Redirecting to /add-data after login
-        } 
-        else {
-            return back()->withErrors(['email' => 'Invalid credentials']);
-        }
-    }
+    return redirect('addData');
+
+    // if (Auth::attempt($credentials)) {
+    //     return redirect('addData'); // Redirect to add-data after successful login
+    // } else {
+    //     return back()->withErrors(['email' => 'Invalid credentials']);
+    // }
+}
+
+
 
     public function logout()
     {

@@ -70,12 +70,14 @@
     <div class="container">
         <h2>Login</h2>
 
-        <form action="{{ route('login') }}" method="POST">
+        <form action="adddata" method="post">
+
             @csrf
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
+
 
         <a href="{{ route('register') }}" class="link">Don't have an account? Register</a>
     </div>

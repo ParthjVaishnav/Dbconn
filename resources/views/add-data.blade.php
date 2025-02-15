@@ -2,7 +2,7 @@
     <!-- Form for submitting student data -->
     <h1 style="color: #4CAF50; font-family: Arial, sans-serif; margin-bottom: 20px;">Add Student Details</h1>
     <form
-        action="show"
+        action="{{route('show')}}"
         method="post"
         style="
             background-color: #f8f9fa;
@@ -141,4 +141,3 @@
     </form>
 
     <!-- Form for sending test mail -->
-    

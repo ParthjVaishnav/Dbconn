@@ -8,8 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('show', 'add-data');
-Route::post('show', [Studentcontroller::class, 'getinfo']);
+
+Route::post('show', [Studentcontroller::class, 'getinfo'])->name('show');
 Route::get('show-data', [Studentcontroller::class, 'showData']);
 Route::get('delete/{id}', [Studentcontroller::class, 'delete'])->name("delete-student");
 Route::get('edit/{id}', [Studentcontroller::class, 'edit'])->name("edit");
@@ -22,7 +22,11 @@ Route::post('send-test-mail', [Studentcontroller::class, 'sendTestMail']);
 Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('login', [AuthController::class, 'login']);
+
+Route::view('addData', 'add-data');
+Route::post('adddata', [AuthController::class, 'addData']);
+// Route::get('add-data', [Studentcontroller::class, 'add-data'])->name('add-data');
+
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
