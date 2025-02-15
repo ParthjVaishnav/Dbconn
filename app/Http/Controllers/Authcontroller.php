@@ -38,18 +38,28 @@ class AuthController extends Controller
 
     public function addData(Request $request)
 {
-    $credentials = $request->validate([
+    $validate = $request->validate([
         'email' => 'required|email',
         'password' => 'required',
     ]);
 
-    return redirect('addData');
+    // return redirect('addData');
 
-    // if (Auth::attempt($credentials)) {
-    //     return redirect('addData'); // Redirect to add-data after successful login
-    // } else {
-    //     return back()->withErrors(['email' => 'Invalid credentials']);
-    // }
+    $user = User::where('email', $validate['email'])->first();
+
+    if ($user) {
+        if (Hash::check($validate['password'], $user->password)) {
+            // Manually log in the user
+            auth()->login($user);
+
+
+            return view('add-data');
+        } else {
+            return back()->withErrors(['password' => 'Invalid credentials.']);
+        }
+    } else {
+        return back()->withErrors(['email' => 'No account found with that email.']);
+    }
 }
 
 
